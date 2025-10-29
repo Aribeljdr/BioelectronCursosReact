@@ -117,7 +117,7 @@ export default function Backup() {
       {toast && <Toast type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-center gap-4 mb-6 sm:mb-8 text-center sm:text-left">
+      <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-4 mb-6 sm:mb-8 text-center sm:text-left">
         <div className="bg-blue-100 p-3 rounded-xl flex-shrink-0">
           <Database className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600" />
         </div>
@@ -129,8 +129,8 @@ export default function Backup() {
 
       {/* Botón de exportar principal */}
       <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl sm:rounded-2xl p-6 sm:p-8 text-white mb-6 sm:mb-8">
-        <div className="flex flex-col sm:flex-row items-center sm:justify-between gap-4 sm:gap-0 text-center sm:text-left">
-          <div>
+        <div className="flex flex-col items-center text-center sm:flex-row sm:items-center sm:justify-between sm:text-left gap-4">
+          <div className="w-full sm:w-auto">
             <h2 className="text-xl sm:text-2xl font-bold mb-2">Backup Completo</h2>
             <p className="text-sm sm:text-base text-blue-100 mb-4">
               Descarga un archivo Excel con todos los datos de la plataforma
@@ -143,7 +143,7 @@ export default function Backup() {
           <button
             onClick={handleExportAll}
             disabled={loading}
-            className="bg-white text-blue-600 hover:bg-blue-50 disabled:opacity-60 disabled:cursor-not-allowed px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold flex items-center gap-3 transition-colors w-full sm:w-auto justify-center text-sm sm:text-base"
+            className="bg-white text-blue-600 hover:bg-blue-50 disabled:opacity-60 disabled:cursor-not-allowed px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold flex items-center gap-3 transition-colors w-full sm:w-auto justify-center text-sm sm:text-base flex-shrink-0"
           >
             {loading ? (
               <>
@@ -164,8 +164,8 @@ export default function Backup() {
 
       {/* Sección de Importar */}
       <div className="bg-gradient-to-r from-green-500 to-blue-600 rounded-xl sm:rounded-2xl p-6 sm:p-8 text-white mb-6 sm:mb-8">
-        <div className="flex flex-col sm:flex-row items-center sm:justify-between gap-4 sm:gap-0 text-center sm:text-left">
-          <div>
+        <div className="flex flex-col items-center text-center sm:flex-row sm:items-center sm:justify-between sm:text-left gap-4">
+          <div className="w-full sm:w-auto">
             <h2 className="text-xl sm:text-2xl font-bold mb-2">Restaurar desde Excel</h2>
             <p className="text-sm sm:text-base text-blue-100 mb-4">
               Sube un archivo Excel para restaurar o importar datos al sistema
@@ -175,7 +175,7 @@ export default function Backup() {
               <span>Compatible con archivos .xlsx y .xls</span>
             </div>
           </div>
-          <div className="flex flex-col items-center gap-3">
+          <div className="flex flex-col items-center gap-3 flex-shrink-0">
             <input
               type="file"
               accept=".xlsx,.xls"
@@ -213,8 +213,8 @@ export default function Backup() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {backupSections.map((section, index) => (
             <div key={index} className="bg-white rounded-xl p-4 sm:p-6 border shadow-sm">
-              <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 mb-4">
-                <div className={`p-3 rounded-lg ${section.bgColor} mx-auto sm:mx-0`}>
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 mb-4">
+                <div className={`p-3 rounded-lg ${section.bgColor}`}>
                   <section.icon className={`w-6 h-6 ${section.color}`} />
                 </div>
                 <div className="text-center sm:text-left">
@@ -223,7 +223,7 @@ export default function Backup() {
                 </div>
               </div>
               <div className="bg-gray-50 rounded-lg p-3">
-                <h5 className="text-xs sm:text-sm font-medium text-gray-700 mb-2">Campos incluidos:</h5>
+                <h5 className="text-xs sm:text-sm font-medium text-gray-700 mb-2 text-center sm:text-left">Campos incluidos:</h5>
                 <div className="flex flex-wrap gap-1 justify-center sm:justify-start">
                   {section.fields.map((field, fieldIndex) => (
                     <span
@@ -242,11 +242,11 @@ export default function Backup() {
 
       {/* Información adicional */}
       <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 sm:p-6 rounded-r-xl">
-        <div className="flex flex-col sm:flex-row items-start gap-3">
-          <AlertCircle className="w-6 h-6 text-yellow-600 flex-shrink-0 mx-auto sm:mx-0" />
-          <div className="text-center sm:text-left">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3">
+          <AlertCircle className="w-6 h-6 text-yellow-600 flex-shrink-0" />
+          <div className="text-center sm:text-left w-full">
             <h4 className="text-yellow-800 font-semibold mb-2 text-sm sm:text-base">Información Importante</h4>
-            <ul className="text-yellow-700 text-xs sm:text-sm space-y-1 text-left">
+            <ul className="text-yellow-700 text-xs sm:text-sm space-y-1 text-left mx-auto sm:mx-0 inline-block sm:block">
               <li>• El archivo se descargará en formato .xlsx (Excel)</li>
               <li>• Cada tabla de la base de datos será una hoja separada</li>
               <li>• Los datos se exportan con la información actual del sistema</li>
