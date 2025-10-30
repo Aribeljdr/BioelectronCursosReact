@@ -243,21 +243,21 @@ export default function Certificados() {
         />
       )}
 
-      <h1 className="text-xl sm:text-2xl font-bold text-gray-700 mb-4 sm:mb-6">Certificados</h1>
+      <h1 className="text-xl sm:text-2xl font-bold text-gray-700 mb-4 sm:mb-6 text-center sm:text-left">Certificados</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Formulario */}
-        <div className="bg-white rounded-xl shadow p-6">
-          <h2 className="font-semibold mb-4">Datos</h2>
+        <div className="bg-white rounded-xl shadow p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold mb-4 text-center sm:text-left">Datos</h2>
 
           <div className="space-y-3">
             <div>
-              <label className="block text-sm mb-1">Alumno</label>
+              <label className="block text-xs sm:text-sm mb-1 font-medium">Alumno</label>
               <select
                 name="userId"
                 value={form.userId}
                 onChange={onChange}
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 text-sm"
               >
                 <option value="">Seleccione…</option>
                 {users.map((u) => (
@@ -270,12 +270,12 @@ export default function Certificados() {
             </div>
 
             <div>
-              <label className="block text-sm mb-1">Curso</label>
+              <label className="block text-xs sm:text-sm mb-1 font-medium">Curso</label>
               <select
                 name="courseId"
                 value={form.courseId}
                 onChange={onChange}
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 text-sm"
               >
                 <option value="">Seleccione…</option>
                 {courses.map((c) => (
@@ -286,36 +286,36 @@ export default function Certificados() {
               </select>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-sm mb-1">Número (opcional)</label>
+                <label className="block text-xs sm:text-sm mb-1 font-medium">Número (opcional)</label>
                 <input
                   name="number"
                   value={form.number}
                   onChange={onChange}
-                  className="w-full border rounded px-3 py-2"
+                  className="w-full border rounded px-3 py-2 text-sm"
                   placeholder="N°"
                 />
               </div>
               <div>
-                <label className="block text-sm mb-1">Fecha de emisión</label>
+                <label className="block text-xs sm:text-sm mb-1 font-medium">Fecha de emisión</label>
                 <input
                   type="date"
                   name="emitDate"
                   value={form.emitDate}
                   onChange={onChange}
-                  className="w-full border rounded px-3 py-2"
+                  className="w-full border rounded px-3 py-2 text-sm"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm mb-1">Representante (Gerente)</label>
+              <label className="block text-xs sm:text-sm mb-1 font-medium">Representante (Gerente)</label>
               <input
                 name="gerenteNombre"
                 value={form.gerenteNombre}
                 onChange={onChange}
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 text-sm"
               />
             </div>
 
@@ -394,7 +394,7 @@ export default function Certificados() {
             )}
 
             {/* overlays */}
-            <div className="absolute inset-0 p-[14%]">
+            <div className="absolute inset-0 p-[10%] sm:p-[14%]">
               {/* bloque superior */}
               <div className="w-full text-center mt-[7%]">
                 <div className="text-xl font-extrabold leading-none mb-1">
@@ -405,7 +405,7 @@ export default function Certificados() {
                 <div className={`text-2xl font-extrabold leading-tight ${!form.userId ? 'text-gray-400 italic' : ''}`}>
                   {alumnoNombre}
                 </div>
-                <div className="mt-2 text-[13px] leading-snug">
+                <div className="mt-2 text-[10px] sm:text-[13px] leading-snug px-2 sm:px-0">
                   Por haber completado satisfactoriamente el curso:
                   <span className={`font-semibold ${!form.courseId ? 'text-gray-400 italic' : ''}`}> {cursoTitulo}</span> con una
                   duración de
@@ -424,7 +424,7 @@ export default function Certificados() {
                   <img
                     src={preview.firmaUrl || tpl?.firmaUrl}
                     alt="firma"
-                    className="h-14 object-contain -mb-2"
+                    className="h-10 sm:h-14 object-contain -mb-2"
                   />
                 ) : (
                   <div className="h-14 flex items-center justify-center text-xs text-gray-400 italic">

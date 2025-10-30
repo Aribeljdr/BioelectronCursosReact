@@ -217,7 +217,7 @@ export default function Backup() {
                 <div className={`p-3 rounded-lg ${section.bgColor}`}>
                   <section.icon className={`w-6 h-6 ${section.color}`} />
                 </div>
-                <div className="text-center sm:text-left">
+                <div className="text-center sm:text-left w-full sm:w-auto">
                   <h4 className="text-base sm:text-lg font-semibold text-gray-800">{section.title}</h4>
                   <p className="text-gray-600 text-xs sm:text-sm">{section.description}</p>
                 </div>
