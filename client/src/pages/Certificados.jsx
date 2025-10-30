@@ -321,21 +321,21 @@ export default function Certificados() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs sm:text-sm mb-1 font-medium">Cambiar fondo (PNG/JPG)</label>
+                <label className="block text-sm mb-1 font-medium">Cambiar fondo (PNG/JPG)</label>
                 <input
                   type="file"
                   accept="image/png,image/jpeg"
                   onChange={onFile("backgroundFile")}
-                  className="w-full text-xs sm:text-sm"
+                  className="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                 />
               </div>
               <div>
-                <label className="block text-xs sm:text-sm mb-1 font-medium">Cambiar firma (PNG/JPG)</label>
+                <label className="block text-sm mb-1 font-medium">Cambiar firma (PNG/JPG)</label>
                 <input
                   type="file"
                   accept="image/png,image/jpeg"
                   onChange={onFile("firmaFile")}
-                  className="w-full text-xs sm:text-sm"
+                  className="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                 />
               </div>
             </div>
@@ -343,13 +343,15 @@ export default function Certificados() {
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <button
                 onClick={saveTemplate}
-                className="w-full sm:w-auto px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 text-sm font-medium"
+                className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition-colors w-full sm:w-auto text-sm sm:text-base"
               >
                 Guardar plantilla
               </button>
               <button
                 onClick={emitir}
-                className="w-full sm:w-auto px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700 text-sm font-medium"
+                disabled={!form.userId || !form.courseId}
+                className="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors w-full sm:w-auto text-sm sm:text-base"
+                title={!form.userId || !form.courseId ? "Selecciona alumno y curso primero" : ""}
               >
                 Emitir certificado
               </button>
@@ -358,83 +360,95 @@ export default function Certificados() {
         </div>
 
         {/* Vista previa */}
-        <div className="bg-white rounded-xl shadow p-4 sm:p-6">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-base sm:text-lg font-semibold">Vista previa</h2>
+        <div className="bg-white rounded-xl shadow p-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3">
+            <h2 className="font-semibold">Vista previa</h2>
             <button
               onClick={openPreviewTab}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded border hover:bg-gray-50 text-sm"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded border hover:bg-gray-50 transition-colors text-sm"
               title="Ver en otra pestaña"
             >
               <Eye size={16} />
-              <span className="hidden sm:inline">Ver</span>
+              <span>Ver en pestaña</span>
             </button>
           </div>
 
-          <div className="relative w-full aspect-[1.414/1] border rounded overflow-hidden bg-gray-50">
+          <div className="relative w-full aspect-[1.414/1] border rounded bg-gray-50 overflow-auto">
             {/* fondo */}
             {preview.backgroundUrl ? (
               <img
                 src={preview.backgroundUrl}
                 alt="fondo"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-contain"
               />
             ) : tpl?.backgroundUrl ? (
               <img
                 src={tpl.backgroundUrl}
                 alt="fondo"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-contain"
               />
             ) : (
-              <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                (Sube un fondo PNG/JPG)
+              <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-sm">
+                No se ha seleccionado imagen de fondo
               </div>
             )}
 
             {/* overlays */}
             <div className="absolute inset-0 p-[10%] sm:p-[14%]">
               {/* bloque superior */}
-              <div className="w-full text-center mt-[5%] sm:mt-[7%]">
-                <div className="text-base sm:text-xl font-extrabold leading-none mb-1">
-                  CERTIFICADO N°{form.number || ""}
+              <div className="w-full text-center mt-[7%]">
+                <div className="text-xl font-extrabold leading-none mb-1">
+                  CERTIFICADO N°{form.number || "(Sin número)"}
                 </div>
-                <div className="font-bold text-[10px] sm:text-xs">BIO-2025</div>
-                <div className="mt-1 text-[10px] sm:text-[13px]">Certificado de aprobación para:</div>
-                <div className="text-lg sm:text-2xl font-extrabold leading-tight mt-1">
+                <div className="font-bold text-xs">BIO-2025</div>
+                <div className="mt-1 text-[13px]">Certificado de aprobación para:</div>
+                <div className={`text-2xl font-extrabold leading-tight ${!form.userId ? 'text-gray-400 italic' : ''}`}>
                   {alumnoNombre}
                 </div>
                 <div className="mt-2 text-[10px] sm:text-[13px] leading-snug px-2 sm:px-0">
                   Por haber completado satisfactoriamente el curso:
-                  <span className="font-semibold"> {cursoTitulo}</span> con una
+                  <span className={`font-semibold ${!form.courseId ? 'text-gray-400 italic' : ''}`}> {cursoTitulo}</span> con una
                   duración de
                   <span className="font-semibold"> {horas}</span> horas académicas.
                 </div>
               </div>
 
               {/* fecha abajo izquierda */}
-              <div className="absolute left-[5%] sm:left-[7%] bottom-[9%] text-[10px] sm:text-[12px]">
-                {fechaLarga}
+              <div className="absolute left-[7%] bottom-[9%] text-[12px]">
+                {fechaLarga || "Sin fecha"}
               </div>
 
               {/* firma + gerente abajo derecha */}
-              <div className="absolute right-[15%] sm:right-[28%] bottom-[8%] sm:bottom-[10%] flex flex-col items-center">
-                {(preview.firmaUrl || tpl?.firmaUrl) && (
+              <div className="absolute right-[28%] bottom-[10%] flex flex-col items-center">
+                {(preview.firmaUrl || tpl?.firmaUrl) ? (
                   <img
                     src={preview.firmaUrl || tpl?.firmaUrl}
                     alt="firma"
                     className="h-10 sm:h-14 object-contain -mb-2"
                   />
+                ) : (
+                  <div className="h-14 flex items-center justify-center text-xs text-gray-400 italic">
+                    Sin firma
+                  </div>
                 )}
-                <div className="border-t w-32 sm:w-56" />
-                <div className="text-[10px] sm:text-[12px] mt-1 text-center">{gerente}</div>
-                <div className="text-[9px] sm:text-[11px] text-gray-500">Gerente General</div>
+                <div className="border-t border-gray-400 w-56" />
+                <div className="text-[12px] mt-1">{gerente || "(Sin representante)"}</div>
+                <div className="text-[11px] text-gray-500">Gerente General</div>
               </div>
             </div>
           </div>
 
-          <p className="text-xs text-gray-500 mt-2 text-center sm:text-left">
-            * La posición de los textos es fija por ahora.
-          </p>
+          <div className="mt-3 space-y-1">
+            <p className="text-xs text-gray-500">
+              * La posición de los textos es fija
+            </p>
+            {(!form.userId || !form.courseId) && (
+              <p className="text-xs text-amber-600 flex items-center gap-1">
+                <span>⚠️</span>
+                <span>Selecciona alumno y curso para ver datos reales</span>
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>

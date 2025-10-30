@@ -11,7 +11,7 @@ import {
   FileCheck,
   CheckCircle,
   Database,
-  Home
+  LayoutDashboard
 } from "lucide-react";
 
 export default function SidebarAdminLayout() {
@@ -26,7 +26,7 @@ export default function SidebarAdminLayout() {
   };
 
   const menuItems = [
-    { label: "Inicio", icon: <Home size={18} />, href: "/admin/dashboard" },
+    { label: "Dashboard", icon: <LayoutDashboard size={18} />, href: "/admin/dashboard" },
     { label: "Usuarios", icon: <Users size={18} />, href: "/admin/usuarios" },
     { label: "Crear Curso", icon: <BookOpen size={18} />, href: "/admin/cursos" },
     { label: "Asignar Curso", icon: <ClipboardList size={18} />, href: "/admin/asignar" },
